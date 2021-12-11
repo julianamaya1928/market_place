@@ -1,11 +1,25 @@
 const main = document.getElementById('main');
 const coll = document.getElementsByClassName("collapsible");
-const contenido =document.getElementsByClassName("content");
+const contenido =document.getElementById('content');
 
 let i;
 
 
 listaMotos = [];
+
+const restarproducto =(e) => {
+  let motoresta = e.target.getAttribute('id')
+  listaMotos.splice(parseInt(listaMotos.indexOf(motoresta)),1)
+  mostrar_carrito();
+}
+const eliminarproducto = (e) => {
+  let sinMoto = e.target.getAttribute('id');
+
+  listaMotos = listaMotos.filter((id) => {
+    return id !== sinMoto
+  })
+  mostrar_carrito();
+}
 
 function create_cards() { 
   //este for loq ue hace es definir cuantas cartas van a haber 
@@ -62,7 +76,7 @@ function create_cards() {
 }
 
 const mostrar_carrito = () => {
-  main.innerHTML = '';
+  contenido.innerHTML = '';
   const carro = [...new Set(listaMotos)];
   // console.log(carro);
   // hay que estar demaciado pendiente de esta parte
@@ -79,36 +93,42 @@ const mostrar_carrito = () => {
         contador++;
       }
     }
+    
     console.log(todas_motos);
-    //     const card_producto_cart = document.createElement('div');
-    //     const name = document.createElement('p');
-    //     const price = document.createElement('p');
-    //     const cont = document.createElement('p');
-    //     const btn_suma = document.createElement('button');
-    //     const btn_resta = document.createElement('button');
-    //     const btn_eliminar = document.createElement('button');
-    //     btn_suma.setAttribute('id', todas_motos[0].id);
-    //     btn_resta.setAttribute('id',todas_motos[0].id);
-    //     btn_eliminar.setAttribute('id',todas_motos[0].id);
+        const card_producto_cart = document.createElement('div');
+        console.log(card_producto_cart);
+        const name = document.createElement('p');
+        const price = document.createElement('p');
+        const cont = document.createElement('p');
+        const btn_suma = document.createElement('button');
+        const btn_resta = document.createElement('button');
+        const btn_eliminar = document.createElement('button');
+        btn_suma.setAttribute('id', todas_motos[0].id);
+        btn_resta.setAttribute('id',todas_motos[0].id);
+        btn_eliminar.setAttribute('id',todas_motos[0].id);
 
-    //     // name.textContent = todas_motos[0].name;
-    //     name.textContent = products.id;
-    //     price.textContent = todas_motos[0].price;
-    //     btn_suma.textContent = '+';
-    //     btn_resta.textContent = '-'
-    //     btn_eliminar.textContent = 'X';
-    //     cont.textContent = contador;
+        name.textContent = todas_motos[0].name;
+        // name.textContent = products.id;
+        price.textContent = todas_motos[0].price;
+        btn_suma.textContent = '+';
+        btn_resta.textContent = '-'
+        btn_eliminar.textContent = 'X';
+        cont.textContent = contador;
 
-    //     card_producto_cart.classList.add('card_producto')
-    //     card_producto_cart.appendChild(name);
-    //     card_producto_cart.appendChild(price);
-    //     card_producto_cart.appendChild(cont)
-    //     card_producto_cart.appendChild(btn_suma);
-    //     card_producto_cart.appendChild(btn_resta);
-    //     card_producto_cart.appendChild(btn_eliminar);
+        card_producto_cart.classList.add('card_producto')
+        card_producto_cart.appendChild(name);
+        card_producto_cart.appendChild(price);
+        card_producto_cart.appendChild(cont)
+        card_producto_cart.appendChild(btn_suma);
+        card_producto_cart.appendChild(btn_resta);
+        card_producto_cart.appendChild(btn_eliminar);
 
-    //     contenido.appendChild(card_producto_cart);
+        btn_eliminar.addEventListener('click', eliminarproducto)
+        btn_resta.addEventListener('click', restarproducto)
+        btn_suma.addEventListener('click',endeudarse)
 
+        contenido.appendChild(card_producto_cart);
+        
   }
     
     )
@@ -127,10 +147,13 @@ const mostrar_carrito = () => {
 
 
 function endeudarse(hola){
-  console.log(listaMotos);
+  // console.log(listaMotos);
   // listaMotos.push(event.target.getAttribute('id'))
   // console.log(listaMotos.push(event.target.getAttribute('id')));
   listaMotos.push(hola.target.getAttribute('id'));
+  // console.log(contenido);
+  mostrar_carrito();
+  
 }
 function colapsar(){
   // siendo sncero no tengo ni la menor idea de como funciona esta funcion, la saque de https://www.w3schools.com/howto/howto_js_collapsible.asp

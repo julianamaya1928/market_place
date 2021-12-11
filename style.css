@@ -78,7 +78,7 @@ header {
   background-color: rgb(231, 2, 2);
 }
 
-.content {
+#content {
   padding: 0 18px;
   background-color: rgb(163, 204, 15);
   max-height: 0;
